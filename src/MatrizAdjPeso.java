@@ -65,7 +65,7 @@ public class MatrizAdjPeso {
     public void showMatriz(){
         for (int i = 0; i < matrizAdjPeso.size(); i++) {
             for (int j = 0; j < matrizAdjPeso.size(); j++) {
-                System.out.print(matrizAdjPeso.get(i).get(j) + " ");
+                System.out.printf("%.2f ", matrizAdjPeso.get(i).get(j));
             }
             System.out.println();
         }
