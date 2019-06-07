@@ -17,10 +17,10 @@ public class Grafos {
         MatrizAdjPeso matrizAdjPeso = new MatrizAdjPeso(util.getListaArestas(), util.getQuantidadeVertices());
 
         matrizAdjPeso.showMatriz();
-//
-//        Dijkstra dijkstra = new Dijkstra(matrizAdjPeso.getMatrizAdjPeso());
-//        dijkstra.dijkstra(0);
-//
+
+        Dijkstra dijkstra = new Dijkstra(matrizAdjPeso.getMatrizAdjPeso());
+        dijkstra.dijkstra(0);
+
         BellmanFord bellmanFord = new BellmanFord(matrizAdjPeso);
         bellmanFord.bellmanford(0);
     }
