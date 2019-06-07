@@ -19,8 +19,10 @@ public class Grafos {
         matrizAdjPeso.showMatriz();
 
         Dijkstra dijkstra = new Dijkstra(matrizAdjPeso.getMatrizAdjPeso());
-        dijkstra.dijkstra(1);
+        dijkstra.dijkstra(0);
 
+        BellmanFord bellmanFord = new BellmanFord(matrizAdjPeso);
+        bellmanFord.bellmanford(0);
     }
 }
 
