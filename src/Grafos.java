@@ -17,6 +17,10 @@ public class Grafos {
         MatrizAdjPeso matrizAdjPeso = new MatrizAdjPeso(util.getListaElementos());
 
         matrizAdjPeso.showMatriz();
+
+        Dijkstra dijkstra = new Dijkstra(matrizAdjPeso.getMatrizAdjPeso());
+        dijkstra.dijkstra(1);
+
     }
 }
 
