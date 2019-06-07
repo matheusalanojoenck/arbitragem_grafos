@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -9,7 +8,7 @@ import java.util.LinkedList;
 public class MatrizAdjPeso {
 
     private final LinkedList<LinkedList<Float>> matrizAdjPeso = new LinkedList();
-    private final LinkedList<LinkedList<Float>> listaAdjPeso = new LinkedList();;
+    private final LinkedList<LinkedList<Float>> listaArestas = new LinkedList();
     private  int V = 0; //Maior numero dos vertices
 
     public MatrizAdjPeso(ArrayList<Float> listaElementosPeso){
@@ -30,27 +29,27 @@ public class MatrizAdjPeso {
 
     private void initListaAdjPeso(ArrayList<Float> listaElementosPeso){
         int index = 0;
-        listaAdjPeso.add(new LinkedList());
+        listaArestas.add(new LinkedList());
         for (int i = 0; i < listaElementosPeso.size(); i++) { /*para não contar o ultimo -1 da entrado de dados*/
             Float elemento = listaElementosPeso.get(i);
             if(elemento != -1){
-                listaAdjPeso.get(index).add(elemento);
+                listaArestas.get(index).add(elemento);
             }else{
-                if(listaAdjPeso.get(index).get(0)>V) V = listaAdjPeso.get(index).get(0).intValue(); /*Verfica o maior vertice*/
-                if(listaAdjPeso.get(index).get(1)>V) V = listaAdjPeso.get(index).get(1).intValue(); /*para saber a quantidade de vertices*/
-                listaAdjPeso.add(new LinkedList());
+                if(listaArestas.get(index).get(0)>V) V = listaArestas.get(index).get(0).intValue(); /*Verfica o maior vertice*/
+                if(listaArestas.get(index).get(1)>V) V = listaArestas.get(index).get(1).intValue(); /*para saber a quantidade de vertices*/
+                listaArestas.add(new LinkedList());
                 index++;
             }
         }
-        listaAdjPeso.removeLast(); /*remove a ultima lista, porconta do ultimo -1 da entrada de dados*/
+        listaArestas.removeLast(); /*remove a ultima lista, porconta do ultimo -1 da entrada de dados*/
         V++; //Os vertices começam em zero, então o total de vertices é V + 1
     }
 
 
 
     private void setMatrizAdjPeso(){
-        for (int i = 0; i < listaAdjPeso.size(); i++) {
-            addAresta(listaAdjPeso.get(i).get(0).intValue(), listaAdjPeso.get(i).get(1).intValue(), listaAdjPeso.get(i).get(2));
+        for (int i = 0; i < listaArestas.size(); i++) {
+            addAresta(listaArestas.get(i).get(0).intValue(), listaArestas.get(i).get(1).intValue(), listaArestas.get(i).get(2));
         }
     }
 
@@ -73,5 +72,9 @@ public class MatrizAdjPeso {
 
     public LinkedList<LinkedList<Float>> getMatrizAdjPeso(){
         return matrizAdjPeso;
+    }
+
+    public LinkedList<LinkedList<Float>> getListaArestas(){
+        return listaArestas;
     }
 }
