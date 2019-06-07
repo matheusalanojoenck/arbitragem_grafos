@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -10,7 +10,9 @@ import java.util.Scanner;
  */
 public class Util {
     
-    private ArrayList<Float> listaElementos = new ArrayList<>();
+    private LinkedList<LinkedList<Float>> listaArestas = new LinkedList<>();
+    private int maiorVertice = 0;
+
 
     public static void pausa(){
         System.out.println("Aperte 'Enter' para continuar...");
@@ -33,25 +35,32 @@ public class Util {
             return;
         }
 
-        listaElementos = new ArrayList<>();
+        listaArestas = new LinkedList<>();
 
-        while(scanner.hasNext()){
+
+        for(int index = 0; scanner.hasNext(); index++){
+            listaArestas.add(new LinkedList<>());
+
             int origem = scanner.nextInt();
-            listaElementos.add((float) origem);
+            listaArestas.get(index).add((float) origem);
+            if (origem > maiorVertice) maiorVertice = origem;
 
             int destino = scanner.nextInt();
-            listaElementos.add((float) destino);
+            listaArestas.get(index).add((float) destino);
+            if (destino > maiorVertice) maiorVertice = destino;
 
             float peso = scanner.nextFloat();
-            listaElementos.add(peso);
-
-            int endLine = scanner.nextInt();
-            listaElementos.add((float)endLine);
+            listaArestas.get(index).add(peso);
         }
+
     }
     
-    public ArrayList<Float> getListaElementos(){
-        return listaElementos;
+    public LinkedList<LinkedList<Float>> getListaArestas(){
+        return listaArestas;
+    }
+
+    public int getQuantidadeVertices(){
+        return (maiorVertice + 1);
     }
     
 }
