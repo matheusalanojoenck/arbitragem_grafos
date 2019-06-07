@@ -13,16 +13,20 @@ public class BellmanFord {
     // The main function that finds shortest distances from src
     // to all other vertices using Bellman-Ford algorithm.  The
     // function also detects negative weight cycle
-    public void bellmanford(int src) {
-        int V = matrizAdjPeso.size(), E = listaArestas.size();
-        float dist[] = new float[V];
+    public void bellmanford(int origem) {
+
+        int V = matrizAdjPeso.size(); //Quantidade de vertices
+        int E = listaArestas.size(); //Quantidade de arestas
+
+        float[] estimativa = new float[V];
+        int[] precedente = new int[V];
 
         // Step 1: Initialize distances from src to all other
         // vertices as INFINITE
         for (int i=0; i<V; ++i) {
-            dist[i] = Integer.MAX_VALUE;
+            estimativa[i] = Integer.MAX_VALUE;
         }
-        dist[src] = 0;
+        estimativa[origem] = 0;
 
         // Step 2: Relax all edges |V| - 1 times. A simple
         // shortest path from src to any other vertex can
@@ -31,9 +35,11 @@ public class BellmanFord {
             for (int j=0; j<E; ++j) {
                 int u =        listaArestas.get(j).get(0).intValue();
                 int v =        listaArestas.get(j).get(1).intValue();
-                float weight = listaArestas.get(j).get(2);
-                if (dist[u]!=Integer.MAX_VALUE && dist[u]+weight<dist[v]){
-                    dist[v]=dist[u]+weight;
+                float peso = listaArestas.get(j).get(2);
+
+                if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso<estimativa[v]){
+                    estimativa[v] = estimativa[u]+peso;
+                    precedente[v] = u;
                 }
             }
         }
@@ -46,20 +52,18 @@ public class BellmanFord {
 
             int u =        listaArestas.get(j).get(0).intValue();
             int v =        listaArestas.get(j).get(1).intValue();
-            float weight = listaArestas.get(j).get(2);
+            float peso = listaArestas.get(j).get(2);
 
-            if (dist[u] != Integer.MAX_VALUE &&
-                    dist[u]+weight < dist[v])
-                System.out.println("Graph contains negative weight cycle");
+            if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v])
+                System.out.println("O grafo contem ciclo de peso negativo");
         }
-        printArr(dist, V);
+        printArr(precedente, estimativa, V);
     }
 
     // A utility function used to print the solution
-    void printArr(float dist[], int V)
-    {
-        System.out.println("Vertex   Distance from Source");
+    private void printArr(int[] precedente, float[] dist, int V) {
+        System.out.println("Vertices | Distancia da Origem | Precedente");
         for (int i=0; i<V; ++i)
-            System.out.println(i+"\t\t"+dist[i]);
+            System.out.println(i + " \t\t\t\t " + dist[i] + " \t\t\t\t " + precedente[i]);
     }
 }
