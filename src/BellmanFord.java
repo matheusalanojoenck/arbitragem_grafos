@@ -57,13 +57,16 @@ public class BellmanFord {
             if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v])
                 System.out.println("O grafo contem ciclo de peso negativo");
         }
-        printArr(precedente, estimativa, V);
+        printArr(precedente, estimativa, V, origem);
     }
 
     // A utility function used to print the solution
-    private void printArr(int[] precedente, float[] dist, int V) {
-        System.out.println("Vertices | Distancia da Origem | Precedente");
-        for (int i=0; i<V; ++i)
-            System.out.println(i + " \t\t\t\t " + dist[i] + " \t\t\t\t " + precedente[i]);
+    private void printArr(int[] precedente, float[] dist, int V, int origem) {
+        System.out.println(   "Vertices | Distancia da Origem | Precedente | Tamanho do Ciclo");
+        for (int i=0; i<V; ++i){
+            System.out.printf("    %d              %.2f             %d             %.2f\n ",
+                                   i,             dist[i],    precedente[i], dist[i]+matrizAdjPeso.get(i).get(origem));
+
+        }
     }
 }
