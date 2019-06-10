@@ -23,7 +23,7 @@ public class Util {
         }
     }
     
-    public  void initDado(){
+    public boolean initDado(){
         Scanner scanner;
         try {
             System.out.print("Nome do arquivo: ");
@@ -32,7 +32,7 @@ public class Util {
             scanner = new Scanner(new File("dados/"+ nomeArquivo + ".txt"));
         } catch (FileNotFoundException ex) {
             System.err.println(ex.toString());
-            return;
+            return false;
         }
 
         listaArestas = new LinkedList<>();
@@ -50,9 +50,10 @@ public class Util {
             if (destino > maiorVertice) maiorVertice = destino;
 
             float peso = scanner.nextFloat();
-            listaArestas.get(index).add(peso);
+            listaArestas.get(index).add((float) (Math.log10(peso) * -1));
         }
 
+        return true;
     }
     
     public LinkedList<LinkedList<Float>> getListaArestas(){
