@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Alunos: Matheus Alano | Gabriel
  * @author mathe
@@ -11,18 +13,18 @@ public class Grafos {
     public static void main(String[] args) {
 
         Util util = new Util();
-        util.initDado();
-        System.out.println(util.getListaArestas());
-        System.out.println(util.getQuantidadeVertices());
-        MatrizAdjPeso matrizAdjPeso = new MatrizAdjPeso(util.getListaArestas(), util.getQuantidadeVertices());
+        if(util.initDado()){
+            MatrizAdjPeso matrizAdjPeso = new MatrizAdjPeso(util.getListaArestas(), util.getQuantidadeVertices());
+            int opcao;
+            Scanner scanner = new Scanner(System.in);
+            BellmanFord bellmanFord = new BellmanFord(matrizAdjPeso);
 
-        matrizAdjPeso.showMatriz();
-
-        Dijkstra dijkstra = new Dijkstra(matrizAdjPeso.getMatrizAdjPeso());
-        dijkstra.dijkstra(0);
-
-        BellmanFord bellmanFord = new BellmanFord(matrizAdjPeso);
-        bellmanFord.bellmanford(0);
+            do {
+                System.out.println("Vertice de origem: ");
+                opcao = scanner.nextInt();
+                bellmanFord.bellmanford(opcao);
+            } while (opcao != -1);
+        }
     }
 }
 
