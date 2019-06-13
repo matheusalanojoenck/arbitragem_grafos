@@ -54,8 +54,10 @@ public class BellmanFord {
             int v =        listaArestas.get(j).get(1).intValue();
             float peso = listaArestas.get(j).get(2);
 
-            if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v])
+            if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v]){
                 System.out.println("O grafo contem ciclo de peso negativo");
+                return;
+            }
         }
         printArr(precedente, estimativa, V, origem);
     }
