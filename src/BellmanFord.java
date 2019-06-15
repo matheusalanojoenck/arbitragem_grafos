@@ -10,9 +10,6 @@ public class BellmanFord {
         this.matrizAdjPeso = matrizAdjPeso.getMatrizAdjPeso();
     }
 
-    // The main function that finds shortest distances from src
-    // to all other vertices using Bellman-Ford algorithm.  The
-    // function also detects negative weight cycle
     public void bellmanford(int origem) {
 
         int V = matrizAdjPeso.size(); //Quantidade de vertices
@@ -21,37 +18,33 @@ public class BellmanFord {
         float[] estimativa = new float[V];
         int[] precedente = new int[V];
 
-        // Step 1: Initialize distances from src to all other
-        // vertices as INFINITE
+        //Inicializa a disntancia da origem para os outros vertices como infinito;
         for (int i=0; i<V; ++i) {
             estimativa[i] = Integer.MAX_VALUE;
         }
-        estimativa[origem] = 0;
+        estimativa[origem] = 0; //Distancia da origem para ele mesmo é zero
 
-        // Step 2: Relax all edges |V| - 1 times. A simple
-        // shortest path from src to any other vertex can
-        // have at-most |V| - 1 edges
+
+        //Relaxar todas as arestas V-1 vezes (V = quantidade de vertices).
+        //Um caminho simples da origem para outro vertice pode ter njo maximo V - 1 arestas
         for (int i=1; i<V; ++i) {
             for (int j=0; j<E; ++j) {
-                int u =        listaArestas.get(j).get(0).intValue();
-                int v =        listaArestas.get(j).get(1).intValue();
-                float peso = listaArestas.get(j).get(2);
+                int u =      listaArestas.get(j).get(0).intValue(); //vertice de origem da aresta
+                int v =      listaArestas.get(j).get(1).intValue(); //vertice de destino
+                float peso = listaArestas.get(j).get(2);            //peso da aresta
 
-                if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso<estimativa[v]){
-                    estimativa[v] = estimativa[u]+peso;
+                if (estimativa[u] != Integer.MAX_VALUE && estimativa[u] + peso < estimativa[v]){
+                    estimativa[v] = estimativa[u] + peso;
                     precedente[v] = u;
                 }
             }
         }
 
-        // Step 3: check for negative-weight cycles.  The above
-        // step guarantees shortest distances if graph doesn't
-        // contain negative weight cycle. If we get a shorter
-        //  path, then there is a cycle.
+        //Verifica se há ciclos negativos
         for (int j=0; j<E; ++j) {
 
-            int u =        listaArestas.get(j).get(0).intValue();
-            int v =        listaArestas.get(j).get(1).intValue();
+            int u =      listaArestas.get(j).get(0).intValue();
+            int v =      listaArestas.get(j).get(1).intValue();
             float peso = listaArestas.get(j).get(2);
 
             if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v]){
@@ -59,10 +52,10 @@ public class BellmanFord {
                 return;
             }
         }
+
         printArr(precedente, estimativa, V, origem);
     }
 
-    // A utility function used to print the solution
     private void printArr(int[] precedente, float[] dist, int V, int origem) {
         System.out.println(   "Vertices | Distancia da Origem | Precedente | Tamanho do Ciclo");
         for (int i=0; i<V; ++i){
