@@ -49,7 +49,7 @@ public class BellmanFord {
 
             if (estimativa[u] != Integer.MAX_VALUE && estimativa[u]+peso < estimativa[v]){
                 System.out.println("O grafo contem ciclo de peso negativo");
-                return;
+                //return;
             }
         }
 
